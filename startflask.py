@@ -22,14 +22,12 @@ def test():
 
 
 
-@app.route("/chatbot",methods=['GET','POST'])
+@app.route("/chatbot",methods=['POST'])
 def req1():
-  if request.method == 'GET':
-      textData = request.args.get('sentence')
-  if request.method == 'POST':
-      record = json.loads(request.data)
-      textData = record['sentence']
-  return " hello, {}".format(textData)
+  data = request.json
+  sentence = data['sentence']
+  print sentence
+  return "Success" + sentence
 
 
 
