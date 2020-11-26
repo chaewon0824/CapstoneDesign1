@@ -59,7 +59,7 @@ def answer_model(sentence):
                 c.sendall(sentence) #mirror_answer_to_model
 		text = c.recv(BUF_SIZE) #answer_from_model
      		msg = text.decode()
-                if(sentence=='EXIT'):
+                if sentence=='bye':
                         c.close()
 			s.close()
                         break;
