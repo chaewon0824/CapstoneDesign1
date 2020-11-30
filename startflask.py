@@ -60,24 +60,9 @@ def handle_my_custom_event_send(json,methods=['POST']):
 def req1():
   data = request.json
   sentence = data['sentence']
-  print sentence
+#  print sentence
   return sentence
 
-def answer_model(sentence):
-  s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
-  s.bind((HOST,PORT))
-  s.listen()
-  c, addr = s.accept()
-  while True:
-        if(sentence):
-                c.sendall(sentence) #mirror_answer_to_model
-		text = c.recv(BUF_SIZE) #answer_from_model
-     		msg = text.decode()
-                if sentence=='bye':
-                        c.close()
-			s.close()
-                        break;
-  return msg
 
 
 @app.route("/example")
