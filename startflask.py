@@ -9,13 +9,6 @@ BUF_SIZE = 1024
 app = Flask(__name__)
 app.debug = True
 
-def send(sock):
-	sendData = input('>>>') #임시로 테스트를 위해 서버측에서 데이터를 콘솔로 입력하는 부분
-	sock.send(sendData.encode())
-	
-def receive(sock):
-	recvData = sock.recv(BUF_SIZE)
-	print('Model: ',recvData.decode('utf-8')) #임시로 서버측 콘솔에 대답을 띄움
 
 serverSock = socket(AF_INET,SOCK_STREAM)
 serverSock.bind((HOST,PORT))
@@ -24,10 +17,21 @@ serverSock.listen()
 connectionSock, addr = serverSock.accept()
 print(str(addr),'Success Connection\n')
 
+
+def send(sock):
+	sendData = input('>>>') #임시로 테스트를 위해 서버측에서 데이터를 콘솔로 입력하는 부분
+	sock.send(sendData.encode())
+	
+def receive(sock):
+	recvData = sock.recv(BUF_SIZE)
+	print('Model: ',recvData.decode('utf-8')) #임시로 서버측 콘솔에 대답을 띄움
+	
+	
 while True: #서버측 반복부분
 	send(connectionSock)
 	receive(connectionSock)
 	
+
 
 
 @app.route("/test",methods=['POST'])
