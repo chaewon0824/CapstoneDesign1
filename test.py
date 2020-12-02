@@ -62,8 +62,17 @@ def handle_my_custom_event_send(json,methods=['POST']):
 
 @app.route("/chatbot",methods=['POST'])
 def req1(): #반복이 될지 안될지 모르겠다..이러면 소켓 연결은 되나?
+  
+  serverSock = socket(AF_INET,SOCK_STREAM)
+  serverSock.bind((HOST,PORT))
+  serverSock.listen()
+
+  connectionSock, addr = serverSock.accept()
+  print(str(addr),'Success Connection\n')
+		
   data = request.json
   send_sentence = data['sentence']
+	
   send(connectionSock,send_sentence) #모델에게 매직미러에서 받은 데이터를 보냄
   sentence = receive(connectionSock) #여기서 함수의 리턴값 = 모델에게 받은 값, 그걸 sentence에 저장 
   print sentence
